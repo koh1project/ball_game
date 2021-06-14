@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start" : "tsc -w index.ts"
+    "start" : "tsc -w index.ts",
+    "fmt": "prettier --write **/*.{js,json,md,html}"
   },
   "repository": {
     "type": "git",

@@ -1,0 +1,23 @@
+{
+  "name": "ball_game",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start" : "tsc -w index.ts"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/koh1project/ball_game.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/koh1project/ball_game/issues"
+  },
+  "homepage": "https://github.com/koh1project/ball_game#readme",
+  "devDependencies": {
+    "typescript": "^4.3.2"
+  }
+}

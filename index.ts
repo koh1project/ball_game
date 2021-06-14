@@ -7,7 +7,7 @@ const BRICK_W = 100;
 const BRICK_H = 50;
 const BRICK_GAP = 2;
 const BRICK_COLS = 8;
-const BRICK_ROWS = 2;
+const BRICK_ROWS = 4;
 
 let brickGrid = new Array(BRICK_COLS);
 

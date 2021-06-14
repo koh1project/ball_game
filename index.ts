@@ -5,6 +5,7 @@ let ballSpeedY = 7;
 
 const BRICK_W = 100;
 const BRICK_H = 50;
+const BRICK_GAP = 2;
 const BRICK_COUNT = 8;
 
 let brickGrid = new Array(BRICK_COUNT);
@@ -109,7 +110,7 @@ const moveAll = () => {
 const drawBricks = () => {
   for (let i = 0; i < BRICK_COUNT; i++) {
     if (brickGrid[i]) {
-      colorRect(BRICK_W * i, 0, BRICK_W - 2, BRICK_H, 'blue');
+      colorRect(BRICK_W * i, 0, BRICK_W - BRICK_GAP, BRICK_H, 'blue');
     } // end of if this brick here
   } // end of for each brick
 }; // end of drawBricks func
@@ -120,7 +121,9 @@ const drawAll = () => {
   colorRect(paddleX, canvas.height - PADDLE_DIST_FROM_EDGE, PADDLE_WIDTH, PADDLE_THICKNESS, 'white');
 
   drawBricks();
-  colorText(mouseX + ',' + mouseY, mouseX, mouseY, 'yellow');
+  const mouseBrickCol = mouseX / BRICK_W;
+  const mouseBrickRow = mouseY / BRICK_H;
+  colorText(mouseBrickCol + ',' + mouseBrickRow, mouseX, mouseY, 'yellow');
 };
 
 const colorText = (showWords: string, textX: number, textY: number, fillColor: string) => {
@@ -128,7 +131,7 @@ const colorText = (showWords: string, textX: number, textY: number, fillColor: s
   canvasContext.fillText(showWords, textX, textY);
 };
 
-const colorRect = (topLeftX, topLeftY, boxWidth, boxHeight, fillColor) => {
+const colorRect = (topLeftX: number, topLeftY: number, boxWidth: number, boxHeight: number, fillColor: string) => {
   canvasContext.fillStyle = fillColor;
   canvasContext.fillRect(topLeftX, topLeftY, boxWidth, boxHeight);
 };

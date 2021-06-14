@@ -9,7 +9,7 @@ const BRICK_GAP = 2;
 const BRICK_COLS = 8;
 const BRICK_ROWS = 4;
 
-let brickGrid = new Array(BRICK_COLS);
+let brickGrid = new Array(BRICK_COLS * BRICK_ROWS);
 
 const PADDLE_WIDTH = 100;
 const PADDLE_THICKNESS = 10;
@@ -33,9 +33,12 @@ const updateMousePos = (evt: MouseEvent) => {
 };
 
 const brickReset = () => {
-  for (let i = 0; i < BRICK_COLS; i++) {
+  for (let i = 0; i < BRICK_COLS * BRICK_ROWS; i++) {
     brickGrid[i] = true;
   } // end of for each brick
+
+  //@ TODO: To remove
+  brickGrid[5] = false;
 }; // end of brick Reset func
 
 window.onload = () => {
@@ -104,7 +107,10 @@ const moveAll = () => {
 const drawBricks = () => {
   for (let eachRow = 0; eachRow < BRICK_ROWS; eachRow++) {
     for (let eachCol = 0; eachCol < BRICK_COLS; eachCol++) {
-      if (brickGrid[eachCol]) {
+
+      let arrayIndex = BRICK_COLS * eachRow + eachCol;
+
+      if (brickGrid[arrayIndex]) {
         colorRect(BRICK_W * eachCol, BRICK_H * eachRow, BRICK_W - BRICK_GAP, BRICK_H - BRICK_GAP, 'blue');
       } // end of if this brick here
     } // end of for each brick

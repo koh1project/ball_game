@@ -7,6 +7,7 @@ const BRICK_W = 100;
 const BRICK_H = 50;
 const BRICK_GAP = 2;
 const BRICK_COUNT = 8;
+const BRICK_ROWS = 2;
 
 let brickGrid = new Array(BRICK_COUNT);
 
@@ -35,11 +36,13 @@ const brickReset = () => {
   for (let i = 0; i < BRICK_COUNT; i++) {
     brickGrid[i] = true;
 
-    if (Math.random() < 0.5) {
-      brickGrid[i] = true;
-    } else {
-      brickGrid[i] = false;
-    } // end of else (rand check)
+    // if (Math.random() < 0.5) {
+    //   brickGrid[i] = true;
+    // } else {
+    //   brickGrid[i] = false;
+    // } // end of else (rand check)
+
+    brickGrid[i] = true;
   } // end of for each brick
 }; // end of brick Reset func
 
@@ -108,11 +111,13 @@ const moveAll = () => {
 };
 
 const drawBricks = () => {
-  for (let i = 0; i < BRICK_COUNT; i++) {
-    if (brickGrid[i]) {
-      colorRect(BRICK_W * i, 0, BRICK_W - BRICK_GAP, BRICK_H, 'blue');
-    } // end of if this brick here
-  } // end of for each brick
+  for (let eachRow = 0; eachRow < BRICK_ROWS; eachRow++) {
+    for (let i = 0; i < BRICK_COUNT; i++) {
+      if (brickGrid[i]) {
+        colorRect(BRICK_W * i, BRICK_H * eachRow, BRICK_W - BRICK_GAP, BRICK_H - BRICK_GAP, 'blue');
+      } // end of if this brick here
+    } // end of for each brick
+  }
 }; // end of drawBricks func
 
 const drawAll = () => {

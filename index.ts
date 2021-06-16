@@ -4,10 +4,10 @@ let ballSpeedX = 5;
 let ballSpeedY = 7;
 
 const BRICK_W = 80;
-const BRICK_H = 40; // temporarily doubled
+const BRICK_H = 20;
 const BRICK_GAP = 2;
 const BRICK_COLS = 10;
-const BRICK_ROWS = 7; // temporarily halved
+const BRICK_ROWS = 14;
 let brickGrid = new Array(BRICK_COLS * BRICK_ROWS) as [boolean];
 let bricksLeft = 0;
 
@@ -40,7 +40,12 @@ const updateMousePos = (evt: MouseEvent) => {
 
 const brickReset = () => {
   bricksLeft = 0;
-  for (let i = 0; i < BRICK_COLS * BRICK_ROWS; i++) {
+  let i;
+  for (i = 0; i < 3 * BRICK_COLS; i++) {
+    brickGrid[i] = false;
+  }
+
+  for (; i < BRICK_COLS * BRICK_ROWS; i++) {
     brickGrid[i] = true;
     bricksLeft++;
   } // end of for each brick

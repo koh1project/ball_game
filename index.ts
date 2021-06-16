@@ -81,6 +81,13 @@ const moveAll = () => {
     // Bottom
     ballReset();
   }
+  const ballBrickCol = Math.floor(ballX / BRICK_W);
+  const ballBrickRow = Math.floor(ballY / BRICK_H);
+  const brickIndexUnderBall = rowColToArrayIndex(ballBrickCol, ballBrickRow);
+
+  if (ballBrickCol >= 0 && ballBrickCol < BRICK_COLS && ballBrickRow >= 0 && ballBrickRow < BRICK_ROWS) {
+    brickGrid[brickIndexUnderBall] = false;
+  }
 
   let paddleTopEdgeY = canvas.height - PADDLE_DIST_FROM_EDGE;
   let paddleBottomEdgeY = paddleTopEdgeY + PADDLE_THICKNESS;
@@ -123,16 +130,6 @@ const drawAll = () => {
   colorRect(paddleX, canvas.height - PADDLE_DIST_FROM_EDGE, PADDLE_WIDTH, PADDLE_THICKNESS, 'white');
 
   drawBricks();
-  const mouseBrickCol = Math.floor(mouseX / BRICK_W);
-  const mouseBrickRow = Math.floor(mouseY / BRICK_H);
-  const brickIndexUnderMouse = rowColToArrayIndex(mouseBrickCol, mouseBrickRow);
-
-  colorText(mouseBrickCol + ',' + mouseBrickRow + ':' + brickIndexUnderMouse, mouseX, mouseY, 'yellow');
-
-  if (brickIndexUnderMouse >= 0 && brickIndexUnderMouse < BRICK_COLS * BRICK_ROWS) {
-    brickGrid[brickIndexUnderMouse] = false;
-  }
-
 };
 
 const colorText = (showWords: string, textX: number, textY: number, fillColor: string) => {

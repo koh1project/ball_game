@@ -104,11 +104,14 @@ const moveAll = () => {
   }
 };
 
+const rowColToArrayIndex = (col: number, row: number) => {
+  return col + BRICK_COLS * row;
+};
+
 const drawBricks = () => {
   for (let eachRow = 0; eachRow < BRICK_ROWS; eachRow++) {
     for (let eachCol = 0; eachCol < BRICK_COLS; eachCol++) {
-
-      let arrayIndex = BRICK_COLS * eachRow + eachCol;
+      let arrayIndex = rowColToArrayIndex(eachCol, eachRow);
 
       if (brickGrid[arrayIndex]) {
         colorRect(BRICK_W * eachCol, BRICK_H * eachRow, BRICK_W - BRICK_GAP, BRICK_H - BRICK_GAP, 'blue');
@@ -125,7 +128,8 @@ const drawAll = () => {
   drawBricks();
   const mouseBrickCol = Math.floor(mouseX / BRICK_W);
   const mouseBrickRow = Math.floor(mouseY / BRICK_H);
-  colorText(mouseBrickCol + ',' + mouseBrickRow, mouseX, mouseY, 'yellow');
+  const brickIndexUnderMouse = rowColToArrayIndex(mouseBrickCol, mouseBrickRow);
+  colorText(mouseBrickCol + ',' + mouseBrickRow + ':' + brickIndexUnderMouse, mouseX, mouseY, 'yellow');
 };
 
 const colorText = (showWords: string, textX: number, textY: number, fillColor: string) => {

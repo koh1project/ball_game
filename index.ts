@@ -48,6 +48,7 @@ window.onload = () => {
   canvas.addEventListener('mousemove', updateMousePos);
 
   brickReset();
+  // ballReset();
 };
 
 const updateAll = () => {
@@ -60,7 +61,7 @@ const ballReset = () => {
   ballY = canvas.height / 2;
 };
 
-const moveAll = () => {
+const ballMove = () => {
   ballX += ballSpeedX;
   ballY += ballSpeedY;
 
@@ -81,14 +82,22 @@ const moveAll = () => {
     // Bottom
     ballReset();
   }
+};
+
+const ballBrickHandling = () => {
   const ballBrickCol = Math.floor(ballX / BRICK_W);
   const ballBrickRow = Math.floor(ballY / BRICK_H);
   const brickIndexUnderBall = rowColToArrayIndex(ballBrickCol, ballBrickRow);
 
   if (ballBrickCol >= 0 && ballBrickCol < BRICK_COLS && ballBrickRow >= 0 && ballBrickRow < BRICK_ROWS) {
-    brickGrid[brickIndexUnderBall] = false;
-  }
+    if (brickGrid[brickIndexUnderBall]) {
+      brickGrid[brickIndexUnderBall] = false;
+      ballSpeedY *= -1;
+    } // end of brick found
+  } // end of valid col and row
+}; // end of ballBrickHandling function
 
+const ballPaddleHandling = () => {
   let paddleTopEdgeY = canvas.height - PADDLE_DIST_FROM_EDGE;
   let paddleBottomEdgeY = paddleTopEdgeY + PADDLE_THICKNESS;
   let paddleLeftEdgeX = paddleX;
@@ -106,6 +115,14 @@ const moveAll = () => {
     let ballDistFromPaddleCenterX = ballX - centerOfPaddleX;
     ballSpeedX = ballDistFromPaddleCenterX * 0.35;
   }
+};
+
+const moveAll = () => {
+  ballMove();
+
+  ballBrickHandling();
+
+  ballPaddleHandling();
 };
 
 const rowColToArrayIndex = (col: number, row: number) => {

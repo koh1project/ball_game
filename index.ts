@@ -36,9 +36,6 @@ const brickReset = () => {
   for (let i = 0; i < BRICK_COLS * BRICK_ROWS; i++) {
     brickGrid[i] = true;
   } // end of for each brick
-
-  //@ TODO: To remove
-  brickGrid[5] = false;
 }; // end of brick Reset func
 
 window.onload = () => {
@@ -129,7 +126,13 @@ const drawAll = () => {
   const mouseBrickCol = Math.floor(mouseX / BRICK_W);
   const mouseBrickRow = Math.floor(mouseY / BRICK_H);
   const brickIndexUnderMouse = rowColToArrayIndex(mouseBrickCol, mouseBrickRow);
+
   colorText(mouseBrickCol + ',' + mouseBrickRow + ':' + brickIndexUnderMouse, mouseX, mouseY, 'yellow');
+
+  if (brickIndexUnderMouse >= 0 && brickIndexUnderMouse < BRICK_COLS * BRICK_ROWS) {
+    brickGrid[brickIndexUnderMouse] = false;
+  }
+
 };
 
 const colorText = (showWords: string, textX: number, textY: number, fillColor: string) => {

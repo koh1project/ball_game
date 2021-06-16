@@ -4,12 +4,12 @@ let ballSpeedX = 5;
 let ballSpeedY = 7;
 
 const BRICK_W = 80;
-const BRICK_H = 20;
+const BRICK_H = 40; // temporarily doubled
 const BRICK_GAP = 2;
 const BRICK_COLS = 10;
-const BRICK_ROWS = 14;
-
+const BRICK_ROWS = 7; // temporarily halved
 let brickGrid = new Array(BRICK_COLS * BRICK_ROWS) as [boolean];
+let bricksLeft = 0;
 
 const PADDLE_WIDTH = 100;
 const PADDLE_THICKNESS = 10;
@@ -30,11 +30,19 @@ const updateMousePos = (evt: MouseEvent) => {
   mouseY = evt.clientY - rect.top - root.scrollTop;
 
   paddleX = mouseX - PADDLE_WIDTH / 2;
+
+  // cheat / hack to test ball in any position
+  ballX = mouseX;
+  ballY = mouseY;
+  ballSpeedX = 4;
+  ballSpeedY = -4;
 };
 
 const brickReset = () => {
+  bricksLeft = 0;
   for (let i = 0; i < BRICK_COLS * BRICK_ROWS; i++) {
     brickGrid[i] = true;
+    bricksLeft++;
   } // end of for each brick
 }; // end of brick Reset func
 
@@ -92,6 +100,8 @@ const ballBrickHandling = () => {
   if (ballBrickCol >= 0 && ballBrickCol < BRICK_COLS && ballBrickRow >= 0 && ballBrickRow < BRICK_ROWS) {
     if (brickGrid[brickIndexUnderBall]) {
       brickGrid[brickIndexUnderBall] = false;
+      bricksLeft--;
+      console.log('bricksLeft: ', bricksLeft);
 
       let prevBallX = ballX - ballSpeedX;
       let prevBallY = ballY - ballSpeedY;

@@ -85,14 +85,43 @@ const ballMove = () => {
 };
 
 const ballBrickHandling = () => {
-  const ballBrickCol = Math.floor(ballX / BRICK_W);
-  const ballBrickRow = Math.floor(ballY / BRICK_H);
-  const brickIndexUnderBall = rowColToArrayIndex(ballBrickCol, ballBrickRow);
+  let ballBrickCol = Math.floor(ballX / BRICK_W);
+  let ballBrickRow = Math.floor(ballY / BRICK_H);
+  let brickIndexUnderBall = rowColToArrayIndex(ballBrickCol, ballBrickRow);
 
   if (ballBrickCol >= 0 && ballBrickCol < BRICK_COLS && ballBrickRow >= 0 && ballBrickRow < BRICK_ROWS) {
     if (brickGrid[brickIndexUnderBall]) {
       brickGrid[brickIndexUnderBall] = false;
-      ballSpeedY *= -1;
+
+      let prevBallX = ballX - ballSpeedX;
+      let prevBallY = ballY - ballSpeedY;
+      let prevBrickCol = Math.floor(prevBallX / BRICK_W);
+      let prevBrickRow = Math.floor(prevBallY / BRICK_H);
+
+      let bothTestsFailed = true;
+
+      if (prevBrickCol != ballBrickCol) {
+        let adjBrickSide = rowColToArrayIndex(prevBrickCol, ballBrickRow);
+
+        if (brickGrid[adjBrickSide] == false) {
+          ballSpeedX *= -1;
+          bothTestsFailed = false;
+        }
+      }
+      if (prevBrickRow != ballBrickRow) {
+        let adjBrickTopBot = rowColToArrayIndex(ballBrickCol, prevBrickRow);
+
+        if (brickGrid[adjBrickTopBot] == false) {
+          ballSpeedY *= -1;
+          bothTestsFailed = false;
+        }
+      }
+
+      if (bothTestsFailed) {
+        // armpit case, prevents ball from going through
+        ballSpeedX *= -1;
+        ballSpeedY *= -1;
+      }
     } // end of brick found
   } // end of valid col and row
 }; // end of ballBrickHandling function

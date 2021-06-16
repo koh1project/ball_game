@@ -3,11 +3,11 @@ let ballY = 75;
 let ballSpeedX = 5;
 let ballSpeedY = 7;
 
-const BRICK_W = 100;
-const BRICK_H = 50;
+const BRICK_W = 80;
+const BRICK_H = 20;
 const BRICK_GAP = 2;
-const BRICK_COLS = 8;
-const BRICK_ROWS = 4;
+const BRICK_COLS = 10;
+const BRICK_ROWS = 14;
 
 let brickGrid = new Array(BRICK_COLS * BRICK_ROWS);
 
@@ -123,8 +123,8 @@ const drawAll = () => {
   colorRect(paddleX, canvas.height - PADDLE_DIST_FROM_EDGE, PADDLE_WIDTH, PADDLE_THICKNESS, 'white');
 
   drawBricks();
-  const mouseBrickCol = mouseX / BRICK_W;
-  const mouseBrickRow = mouseY / BRICK_H;
+  const mouseBrickCol = Math.floor(mouseX / BRICK_W);
+  const mouseBrickRow = Math.floor(mouseY / BRICK_H);
   colorText(mouseBrickCol + ',' + mouseBrickRow, mouseX, mouseY, 'yellow');
 };
 

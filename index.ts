@@ -32,10 +32,10 @@ const updateMousePos = (evt: MouseEvent) => {
   paddleX = mouseX - PADDLE_WIDTH / 2;
 
   // cheat / hack to test ball in any position
-  ballX = mouseX;
-  ballY = mouseY;
-  ballSpeedX = 4;
-  ballSpeedY = -4;
+  // ballX = mouseX;
+  // ballY = mouseY;
+  // ballSpeedX = 4;
+  // ballSpeedY = -4;
 };
 
 const brickReset = () => {
@@ -94,6 +94,7 @@ const ballMove = () => {
   if (ballY > canvas.height) {
     // Bottom
     ballReset();
+    brickReset();
   }
 };
 

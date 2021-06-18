@@ -98,13 +98,22 @@ const ballMove = () => {
   }
 };
 
+const isBrickAtColRow = (col: number, row: number) => {
+  if (col >= 0 && col < BRICK_COLS && row >= 0 && row < BRICK_ROWS) {
+    let brickIndexUnderCoord = rowColToArrayIndex(col, row);
+    return brickGrid[brickIndexUnderCoord];
+  } else {
+    return false;
+  }
+};
+
 const ballBrickHandling = () => {
   let ballBrickCol = Math.floor(ballX / BRICK_W);
   let ballBrickRow = Math.floor(ballY / BRICK_H);
   let brickIndexUnderBall = rowColToArrayIndex(ballBrickCol, ballBrickRow);
 
   if (ballBrickCol >= 0 && ballBrickCol < BRICK_COLS && ballBrickRow >= 0 && ballBrickRow < BRICK_ROWS) {
-    if (brickGrid[brickIndexUnderBall]) {
+    if (isBrickAtColRow(ballBrickCol, ballBrickRow)) {
       brickGrid[brickIndexUnderBall] = false;
       bricksLeft--;
       console.log('bricksLeft: ', bricksLeft);
@@ -117,17 +126,13 @@ const ballBrickHandling = () => {
       let bothTestsFailed = true;
 
       if (prevBrickCol != ballBrickCol) {
-        let adjBrickSide = rowColToArrayIndex(prevBrickCol, ballBrickRow);
-
-        if (brickGrid[adjBrickSide] == false) {
+        if (isBrickAtColRow(prevBrickCol, ballBrickRow) == false) {
           ballSpeedX *= -1;
           bothTestsFailed = false;
         }
       }
       if (prevBrickRow != ballBrickRow) {
-        let adjBrickTopBot = rowColToArrayIndex(ballBrickCol, prevBrickRow);
-
-        if (brickGrid[adjBrickTopBot] == false) {
+        if (isBrickAtColRow(ballBrickCol, prevBrickRow) == false) {
           ballSpeedY *= -1;
           bothTestsFailed = false;
         }

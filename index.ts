@@ -78,16 +78,16 @@ const ballMove = () => {
   ballX += ballSpeedX;
   ballY += ballSpeedY;
 
-  if (ballX < 0) {
+  if (ballX < 0 && ballSpeedX < 0.0) {
     // Left
     ballSpeedX *= -1;
   }
-  if (ballX > canvas.width) {
+  if (ballX > canvas.width && ballSpeedX > 0.0) {
     // Right
     ballSpeedX *= -1;
   }
 
-  if (ballY < 0) {
+  if (ballY < 0 && ballSpeedY < 0.0) {
     // Top
     ballSpeedY *= -1;
   }

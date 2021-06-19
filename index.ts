@@ -116,7 +116,7 @@ const ballBrickHandling = () => {
     if (isBrickAtColRow(ballBrickCol, ballBrickRow)) {
       brickGrid[brickIndexUnderBall] = false;
       bricksLeft--;
-      console.log('bricksLeft: ', bricksLeft);
+      // console.log('bricksLeft: ', bricksLeft);
 
       let prevBallX = ballX - ballSpeedX;
       let prevBallY = ballY - ballSpeedY;
